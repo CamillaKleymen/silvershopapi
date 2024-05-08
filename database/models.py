@@ -16,7 +16,7 @@ class User(Base):
 class Product(Base):
     __tablename__ = "products"
     id = Column(Integer, autoincrement=True, primary_key=True)
-    prod_id = Column(Integer, ForeignKey("users.id"))
+    # prod_id = Column(Integer, ForeignKey("users.id"))
     name = Column(String, unique=True)
     main_text = Column(String, nullable=True)
     price = Column(String, nullable=True)
@@ -27,7 +27,7 @@ class Product(Base):
 class ProdPhoto(Base):
     __tablename__ = "prod_photos"
     id = Column(Integer, autoincrement=True, primary_key = True)
-    post_id = Column(Integer, ForeignKey("user_posts.id"))
+    product_id = Column(Integer, ForeignKey("product.id"))
     photo_path=Column(String, nullable=False)
     reg_date = Column(DateTime)
 
