@@ -4,7 +4,6 @@ from api.photo_api.photo import photo_router
 from api.users_api.users import users_router
 from api.products_api.products import prod_routers
 
-# connection to project DB and creation all DB
 
 Base.metadata.create_all(bind=engine)
 app = FastAPI(docs_url="/")

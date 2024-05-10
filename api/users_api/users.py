@@ -21,6 +21,7 @@ users_router = APIRouter(tags=["Users management"], prefix="/users")
 async def register_user(user_model: User):
     user_data = dict(user_model)
     mail_validation = mail_checker(user_model.email)
+    reg_user = register_user_db(**user_data)
     if mail_validation:
         try:
             reg_user = register_user_db(**user_data)
@@ -51,5 +52,13 @@ async def change_user_profile(user_id: int, changeable_info: str, new_data: str)
     if data:
         return {"status": 1, "message": "Data successfully uploaded"}
     return {"status":0, "message": "Unfortunately data wasn't changed "}
+
+@users_router.delete("api/users")
+async def delete_user(user_id: int):
+    try:
+        delete_user(user_id)
+        return {"status":1, "message": "User successfully deleted"}
+    except:
+        return {"status": 0, "message": "User wasn't deleted "}
 
 

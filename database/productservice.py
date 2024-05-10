@@ -24,7 +24,7 @@ def change_prod_data_db(product_id, changeable_info, new_data):
                 db.commit()
                 return True
             elif changeable_info == "price":
-                product.price= new_data
+                product.price = new_data
                 db.commit()
                 return True
             db.commit()
@@ -43,9 +43,11 @@ def delete_product_db(product_id):
     return False
 
 #check exact product
-def get_product_db(priduct_id):
+def get_product_db(product_id: int):
     db = next(get_db())
-    exact_product = db.query(Product).filter_by(priduct_id=priduct_id).first()
+    print(product_id)
+    exact_product = db.query(Product).filter_by(id=product_id).first()
+    print(exact_product)
     return exact_product
 
 

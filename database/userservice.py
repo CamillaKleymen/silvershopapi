@@ -6,12 +6,11 @@ from database import get_db
 from datetime import datetime
 
 # user registration
-def register_user_db(name, email, phone_number, password, user_city=None, birthday=None):
+def register_user_db(name, email, phone_number, password):
     db = next(get_db())
     checker = check_user_db(name, phone_number, email)
     if checker == True:
-        new_user = User(name=name, email=email, phone_number=phone_number, password=password, user_city=user_city,
-                        birthday=birthday, reg_date=datetime.now())
+        new_user = User(name=name, email=email, phone_number=phone_number, password=password, reg_date=datetime.now())
         db.add(new_user)
         db.commit()
         return new_user.id
@@ -90,3 +89,11 @@ def change_user_data_db(user_id, changeable_info, new_data):
             return "Unfortunately at this moment changing of data unavailable"
     return False
 
+def delete_user_db(user_id):
+    db = next(get_db())
+    user_to_delete = db.query(User).filter_by(id=user_id).first()
+    if user_to_delete:
+        db.delete(user_to_delete)
+        db.commit()
+        return True
+    return False
